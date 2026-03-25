@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import sharp from "sharp";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -46,8 +47,22 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid image format" }, { status: 400 });
     }
 
-    const mediaType = matches[1] as "image/jpeg" | "image/png" | "image/gif" | "image/webp";
-    const base64Data = matches[2];
+    let mediaType = matches[1] as "image/jpeg" | "image/png" | "image/gif" | "image/webp";
+    let base64Data = matches[2];
+
+    // Compress if image exceeds Claude's 5MB base64 limit
+    const MAX_BYTES = 5 * 1024 * 1024;
+    const rawBytes = Buffer.byteLength(base64Data, "base64");
+    if (rawBytes > MAX_BYTES) {
+      const inputBuffer = Buffer.from(base64Data, "base64");
+      const compressed = await sharp(inputBuffer)
+        .resize({ width: 1920, height: 1920, fit: "inside", withoutEnlargement: true })
+        .jpeg({ quality: 85 })
+        .toBuffer();
+      base64Data = compressed.toString("base64");
+      mediaType = "image/jpeg";
+      console.log(`Compressed image from ${rawBytes} to ${compressed.length} bytes`);
+    }
 
     console.log(`Scoring outfit: ${fileName ?? "unknown"} (${mediaType})`);
 

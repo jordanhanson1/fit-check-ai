@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { toPng } from "html-to-image";
 
 interface FitScore {
   score: number;
@@ -79,67 +78,11 @@ function ScoreRing({ score, grade }: { score: number; grade: string }) {
   );
 }
 
-// Offscreen share card rendered for PNG capture via html-to-image
-function ShareCard({
-  cardRef,
-  score,
-  grade,
-  vibe,
-  imageDataUrl,
-}: {
-  cardRef: React.MutableRefObject<HTMLDivElement | null>;
-  score: number;
-  grade: string;
-  vibe: string;
-  imageDataUrl: string | null;
-}) {
-  return (
-    <div
-      ref={cardRef}
-      style={{
-        position: "fixed",
-        left: "-9999px",
-        top: 0,
-        width: 400,
-        background: "#0a0a0f",
-        borderRadius: 24,
-        overflow: "hidden",
-        fontFamily: "system-ui, -apple-system, sans-serif",
-      }}
-    >
-      <div style={{ position: "relative", height: 280 }}>
-        {imageDataUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageDataUrl} alt="outfit" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        ) : (
-          <div style={{ width: "100%", height: "100%", background: "#1a1a2e" }} />
-        )}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, #0a0a0f)" }} />
-      </div>
-      <div style={{ padding: "20px 24px 8px", display: "flex", alignItems: "center", gap: 16 }}>
-        <div style={{ fontSize: 64, fontWeight: 900, lineHeight: 1, background: "linear-gradient(135deg,#ff2d78,#9b51e0,#00d4ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-          {score}
-        </div>
-        <div>
-          <div style={{ color: "#fff", fontWeight: 900, fontSize: 22 }}>{grade}</div>
-          <div style={{ fontWeight: 700, fontSize: 13, background: "linear-gradient(90deg,#ff2d78,#9b51e0)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", textTransform: "uppercase", letterSpacing: 2 }}>
-            {vibe}
-          </div>
-        </div>
-      </div>
-      <div style={{ padding: "8px 24px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>fitcheck.ai</span>
-        <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 11 }}>Drop your fit →</span>
-      </div>
-    </div>
-  );
-}
 
 export default function ResultPage() {
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
   const [scores, setScores] = useState<FitScore | null>(null);
   const [sharing, setSharing] = useState(false);
-  const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const img = sessionStorage.getItem("fitcheck_image");
@@ -159,10 +102,88 @@ export default function ResultPage() {
   }, []);
 
   const handleShare = async () => {
-    if (!cardRef.current || !scores) return;
+    if (!scores) return;
     setSharing(true);
     try {
-      const png = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 });
+      const W = 800, H = 1000, IMG_H = 580;
+      const canvas = document.createElement("canvas");
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext("2d")!;
+
+      // Background
+      ctx.fillStyle = "#0a0a0f";
+      ctx.fillRect(0, 0, W, H);
+
+      // Outfit image
+      if (imageDataUrl) {
+        const img = new window.Image();
+        await new Promise<void>((resolve) => {
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+          img.src = imageDataUrl;
+        });
+        // Cover-fit: center-crop to fill width
+        const scale = Math.max(W / img.naturalWidth, IMG_H / img.naturalHeight);
+        const sw = W / scale, sh = IMG_H / scale;
+        const sx = (img.naturalWidth - sw) / 2, sy = (img.naturalHeight - sh) / 2;
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, IMG_H);
+      }
+
+      // Gradient fade image into background
+      const fade = ctx.createLinearGradient(0, IMG_H * 0.45, 0, IMG_H);
+      fade.addColorStop(0, "rgba(10,10,15,0)");
+      fade.addColorStop(1, "rgba(10,10,15,1)");
+      ctx.fillStyle = fade;
+      ctx.fillRect(0, 0, W, IMG_H);
+
+      // Score number
+      ctx.font = "900 140px system-ui, -apple-system, sans-serif";
+      const scoreGrad = ctx.createLinearGradient(60, 0, 260, 0);
+      scoreGrad.addColorStop(0, "#ff2d78");
+      scoreGrad.addColorStop(0.5, "#9b51e0");
+      scoreGrad.addColorStop(1, "#00d4ff");
+      ctx.fillStyle = scoreGrad;
+      ctx.fillText(String(scores.score), 60, IMG_H - 20);
+
+      // Grade
+      ctx.font = "900 52px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(scores.grade, 60, IMG_H + 60);
+
+      // Vibe
+      ctx.font = "700 28px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "#9b51e0";
+      ctx.fillText(scores.vibe.toUpperCase(), 60, IMG_H + 106);
+
+      // Divider
+      ctx.strokeStyle = "rgba(255,255,255,0.08)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(60, IMG_H + 130);
+      ctx.lineTo(W - 60, IMG_H + 130);
+      ctx.stroke();
+
+      // Feedback snippet
+      const words = scores.feedback.split(" ");
+      const lines: string[] = [];
+      let line = "";
+      ctx.font = "400 26px system-ui, -apple-system, sans-serif";
+      for (const word of words) {
+        const test = line ? `${line} ${word}` : word;
+        if (ctx.measureText(test).width > W - 120) { lines.push(line); line = word; }
+        else line = test;
+      }
+      if (line) lines.push(line);
+      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      lines.slice(0, 3).forEach((l, i) => ctx.fillText(l, 60, IMG_H + 172 + i * 38));
+
+      // Branding
+      ctx.font = "500 22px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.2)";
+      ctx.fillText("fitcheck.ai  ·  Drop your fit →", 60, H - 40);
+
+      const png = canvas.toDataURL("image/png");
       if (navigator.share) {
         const blob = await fetch(png).then((r) => r.blob());
         const file = new File([blob], "fitcheck.png", { type: "image/png" });
@@ -187,8 +208,6 @@ export default function ResultPage() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0f] flex flex-col">
-      {scores && <ShareCard cardRef={cardRef} score={scores.score} grade={scores.grade} vibe={scores.vibe} imageDataUrl={imageDataUrl} />}
-
       <nav className="px-5 pt-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm font-medium">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -4,6 +4,27 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import PhotoUpload from "@/components/PhotoUpload";
 
+/** Resize + re-encode a data URL to JPEG at max 1200px, quality 0.75 */
+function compressImageForStorage(dataUrl: string): Promise<string> {
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    img.onload = () => {
+      const MAX = 1200;
+      let { width, height } = img;
+      if (width > MAX || height > MAX) {
+        if (width > height) { height = Math.round((height * MAX) / width); width = MAX; }
+        else { width = Math.round((width * MAX) / height); height = MAX; }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext("2d")!.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL("image/jpeg", 0.75));
+    };
+    img.src = dataUrl;
+  });
+}
+
 export default function HomePage() {
   const router = useRouter();
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
@@ -34,8 +55,9 @@ export default function HomePage() {
 
       if (!response.ok) throw new Error("Analysis failed");
 
-      // Store in sessionStorage for result page
-      sessionStorage.setItem("fitcheck_image", imageDataUrl);
+      // Compress before storing — sessionStorage has a ~5MB quota
+      const compressedImage = await compressImageForStorage(imageDataUrl);
+      sessionStorage.setItem("fitcheck_image", compressedImage);
       sessionStorage.setItem("fitcheck_filename", fileName ?? "photo");
 
       const result = await response.json();
