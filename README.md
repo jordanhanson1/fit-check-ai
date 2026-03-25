@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fit Check AI
 
-## Getting Started
+Drop your fit. Get your score. No cap.
 
-First, run the development server:
+AI-powered outfit rating app — upload a photo, get scored by Claude Vision, share your card.
+
+## Stack
+
+- **Next.js 14** (App Router)
+- **Anthropic claude-sonnet-4-6** — vision scoring
+- **Tailwind CSS** — dark mode, mobile-first
+- **html-to-image** — shareable PNG card generation
+
+## Setup
+
+```bash
+npm install
+```
+
+Create a `.env.local`:
+
+```
+ANTHROPIC_API_KEY=sk-ant-...
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm i -g vercel
+vercel
+```
 
-## Learn More
+Set the `ANTHROPIC_API_KEY` environment variable in the Vercel dashboard (Settings → Environment Variables).
 
-To learn more about Next.js, take a look at the following resources:
+The `vercel.json` references `@anthropic-api-key` as a Vercel secret — create it with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+vercel env add ANTHROPIC_API_KEY
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API
 
-## Deploy on Vercel
+### `POST /api/score-outfit`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```json
+{ "imageDataUrl": "data:image/jpeg;base64,...", "fileName": "fit.jpg" }
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Returns:
+```json
+{
+  "score": 87,
+  "grade": "A",
+  "vibe": "Street Luxe",
+  "breakdown": { "style": 90, "fit": 85, "colorCoordination": 88, "occasionFit": 82 },
+  "feedback": "...",
+  "tips": ["...", "...", "..."]
+}
+```
