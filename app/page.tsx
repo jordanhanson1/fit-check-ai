@@ -4,12 +4,12 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import PhotoUpload from "@/components/PhotoUpload";
 
-/** Resize + re-encode a data URL to JPEG at max 1200px, quality 0.75 */
-function compressImageForStorage(dataUrl: string): Promise<string> {
+/** Resize + re-encode a data URL to JPEG at max 1024px, quality 0.7 — keeps payload under Vercel's 4.5MB limit */
+function compressImage(dataUrl: string): Promise<string> {
   return new Promise((resolve) => {
     const img = new window.Image();
     img.onload = () => {
-      const MAX = 1200;
+      const MAX = 1024;
       let { width, height } = img;
       if (width > MAX || height > MAX) {
         if (width > height) { height = Math.round((height * MAX) / width); width = MAX; }
@@ -19,7 +19,7 @@ function compressImageForStorage(dataUrl: string): Promise<string> {
       canvas.width = width;
       canvas.height = height;
       canvas.getContext("2d")!.drawImage(img, 0, 0, width, height);
-      resolve(canvas.toDataURL("image/jpeg", 0.75));
+      resolve(canvas.toDataURL("image/jpeg", 0.7));
     };
     img.src = dataUrl;
   });
@@ -47,17 +47,17 @@ export default function HomePage() {
     setError(null);
 
     try {
+      const compressed = await compressImage(imageDataUrl);
       const response = await fetch("/api/score-outfit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageDataUrl, fileName }),
+        body: JSON.stringify({ imageDataUrl: compressed, fileName }),
       });
 
       if (!response.ok) throw new Error("Analysis failed");
 
-      // Compress before storing — sessionStorage has a ~5MB quota
-      const compressedImage = await compressImageForStorage(imageDataUrl);
-      sessionStorage.setItem("fitcheck_image", compressedImage);
+      // Reuse already-compressed image for sessionStorage
+      sessionStorage.setItem("fitcheck_image", compressed);
       sessionStorage.setItem("fitcheck_filename", fileName ?? "photo");
 
       const result = await response.json();
