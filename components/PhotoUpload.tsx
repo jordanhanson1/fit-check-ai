@@ -64,7 +64,6 @@ export default function PhotoUpload({ onImageSelected, isAnalyzing = false }: Ph
         ref={inputRef}
         type="file"
         accept="image/*"
-        capture="environment"
         onChange={handleInputChange}
         className="hidden"
         aria-label="Upload photo"
