@@ -1,4 +1,6 @@
-import { initializeApp, getApps, cert } from "firebase-admin/app";
+"use server";
+
+import { initializeApp, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
 const firebaseAdminConfig = {

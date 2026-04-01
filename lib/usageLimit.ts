@@ -1,3 +1,5 @@
+"use server";
+
 import { getAdminDb } from "./firebase-admin";
 
 export const WEEKLY_LIMIT = 10;
