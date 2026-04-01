@@ -7,7 +7,7 @@ const nextConfig = {
   },
   // Ensure API routes handle large base64 payloads
   experimental: {
-    serverComponentsExternalPackages: [],
+    serverComponentsExternalPackages: ["firebase-admin"],
   },
 };
 
