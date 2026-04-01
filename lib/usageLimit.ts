@@ -1,5 +1,4 @@
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { getDb } from "./firebase";
+import { getAdminDb } from "./firebase-admin";
 
 export const WEEKLY_LIMIT = 10;
 
@@ -26,20 +25,20 @@ export type UsageResult = {
  * If Firebase is not configured, always allows (fail open for unconfigured envs).
  */
 export async function checkAndIncrementUsage(userId: string): Promise<UsageResult> {
-  const db = getDb();
+  const db = getAdminDb();
   if (!db) {
     console.warn("[usageLimit] Firebase not configured — skipping usage check");
     return { allowed: true, used: 0, remaining: WEEKLY_LIMIT, limit: WEEKLY_LIMIT };
   }
 
   const weekKey = getWeekKey();
-  const docRef = doc(db, "usageLimits", userId);
-  const snap = await getDoc(docRef);
+  const docRef = db.collection("usageLimits").doc(userId);
+  const snap = await docRef.get();
 
   let used = 0;
-  if (snap.exists()) {
+  if (snap.exists) {
     const data = snap.data();
-    used = data.weekKey === weekKey ? (data.count ?? 0) : 0;
+    used = data?.weekKey === weekKey ? (data?.count ?? 0) : 0;
   }
 
   if (used >= WEEKLY_LIMIT) {
@@ -47,7 +46,7 @@ export async function checkAndIncrementUsage(userId: string): Promise<UsageResul
   }
 
   const newCount = used + 1;
-  await setDoc(docRef, { weekKey, count: newCount, updatedAt: serverTimestamp() }, { merge: true });
+  await docRef.set({ weekKey, count: newCount, updatedAt: new Date() }, { merge: true });
 
   return {
     allowed: true,
@@ -59,18 +58,18 @@ export async function checkAndIncrementUsage(userId: string): Promise<UsageResul
 
 /** Returns current usage without incrementing. */
 export async function getUsage(userId: string): Promise<Omit<UsageResult, "allowed">> {
-  const db = getDb();
+  const db = getAdminDb();
   if (!db) {
     return { used: 0, remaining: WEEKLY_LIMIT, limit: WEEKLY_LIMIT };
   }
 
   const weekKey = getWeekKey();
-  const docRef = doc(db, "usageLimits", userId);
-  const snap = await getDoc(docRef);
+  const docRef = db.collection("usageLimits").doc(userId);
+  const snap = await docRef.get();
 
-  if (!snap.exists()) return { used: 0, remaining: WEEKLY_LIMIT, limit: WEEKLY_LIMIT };
+  if (!snap.exists) return { used: 0, remaining: WEEKLY_LIMIT, limit: WEEKLY_LIMIT };
 
   const data = snap.data();
-  const used = data.weekKey === weekKey ? (data.count ?? 0) : 0;
+  const used = data?.weekKey === weekKey ? (data?.count ?? 0) : 0;
   return { used, remaining: WEEKLY_LIMIT - used, limit: WEEKLY_LIMIT };
 }
