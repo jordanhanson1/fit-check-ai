@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import PhotoUpload from "@/components/PhotoUpload";
 
 /** Resize + re-encode a data URL to JPEG at max 1024px, quality 0.7 — keeps payload under Vercel's 4.5MB limit */
@@ -25,12 +26,22 @@ function compressImage(dataUrl: string): Promise<string> {
   });
 }
 
+type UsageInfo = { used: number; remaining: number; limit: number };
+
 export default function HomePage() {
   const router = useRouter();
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [usage, setUsage] = useState<UsageInfo | null>(null);
+
+  useEffect(() => {
+    fetch("/api/usage")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => { if (data && typeof data.remaining === "number") setUsage(data); })
+      .catch(() => {});
+  }, []);
 
   const handleImageSelected = useCallback((dataUrl: string, name: string) => {
     setImageDataUrl(dataUrl);
@@ -54,6 +65,12 @@ export default function HomePage() {
         body: JSON.stringify({ imageDataUrl: compressed, fileName }),
       });
 
+      if (response.status === 429) {
+        const data = await response.json();
+        setError(data.message ?? "Weekly limit reached. Come back next Monday!");
+        setIsAnalyzing(false);
+        return;
+      }
       if (!response.ok) throw new Error("Analysis failed");
 
       // Reuse already-compressed image for sessionStorage
@@ -62,6 +79,12 @@ export default function HomePage() {
 
       const result = await response.json();
       sessionStorage.setItem("fitcheck_result", JSON.stringify(result));
+
+      // Refresh usage count after a successful check
+      fetch("/api/usage")
+        .then((r) => r.ok ? r.json() : null)
+        .then((data) => { if (data && typeof data.remaining === "number") setUsage(data); })
+        .catch(() => {});
 
       router.push("/result");
     } catch (err) {
@@ -89,10 +112,36 @@ export default function HomePage() {
         <p className="text-white/50 text-base sm:text-lg font-medium max-w-xs mx-auto">
           Drop your fit. Get your score. No cap.
         </p>
+
+        {usage !== null && (
+          <p className={`mt-3 text-xs font-semibold tracking-wide ${
+            usage.remaining === 0
+              ? "text-[#ff2d78]"
+              : usage.remaining <= 3
+              ? "text-yellow-400"
+              : "text-white/40"
+          }`}>
+            {usage.remaining === 0
+              ? "Weekly limit reached — resets Monday"
+              : `${usage.remaining} of ${usage.limit} fit checks left this week`}
+          </p>
+        )}
       </header>
 
       {/* Upload section */}
       <section className="flex-1 px-5 pb-8 max-w-lg mx-auto w-full flex flex-col gap-5">
+        {/* Inspiration link */}
+        <Link
+          href="/inspiration"
+          className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/[0.04] border border-white/10 text-white/50 hover:text-white hover:bg-white/[0.07] transition-all text-sm font-semibold"
+        >
+          <span>✨</span>
+          Browse Style Inspiration
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </Link>
+
         <PhotoUpload
           onImageSelected={handleImageSelected}
           isAnalyzing={isAnalyzing}

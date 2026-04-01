@@ -1,6 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { checkAndIncrementUsage } from "@/lib/usageLimit";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -31,6 +34,26 @@ Return ONLY valid JSON, no markdown, no explanation:
 
 export async function POST(req: NextRequest) {
   try {
+    // Enforce usage limit
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.email;
+    if (!userId) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    const usage = await checkAndIncrementUsage(userId);
+    if (!usage.allowed) {
+      return NextResponse.json(
+        {
+          error: "Weekly limit reached",
+          message: `You've used all ${usage.limit} fit checks for this week. Come back next Monday!`,
+          used: usage.used,
+          limit: usage.limit,
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const { imageDataUrl, fileName } = body as {
       imageDataUrl: string;

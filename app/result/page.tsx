@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface FitScore {
@@ -123,11 +122,13 @@ export default function ResultPage() {
           img.onerror = () => resolve();
           img.src = imageDataUrl;
         });
-        // Cover-fit: center-crop to fill width
-        const scale = Math.max(W / img.naturalWidth, IMG_H / img.naturalHeight);
-        const sw = W / scale, sh = IMG_H / scale;
-        const sx = (img.naturalWidth - sw) / 2, sy = (img.naturalHeight - sh) / 2;
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, IMG_H);
+        // Contain-fit: show full image without cropping
+        const scale = Math.min(W / img.naturalWidth, IMG_H / img.naturalHeight);
+        const dw = img.naturalWidth * scale;
+        const dh = img.naturalHeight * scale;
+        const dx = (W - dw) / 2;
+        const dy = (IMG_H - dh) / 2;
+        ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, dx, dy, dw, dh);
       }
 
       // Gradient fade image into background
@@ -225,8 +226,14 @@ export default function ResultPage() {
         {/* Photo + score ring */}
         <div className="relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/10">
           {imageDataUrl ? (
-            <div className="relative h-56 sm:h-72">
-              <Image src={imageDataUrl} alt="Your fit" fill className="object-cover" sizes="(max-width:768px) 100vw, 600px" />
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={imageDataUrl}
+                alt="Your fit"
+                className="w-full block"
+                style={{ maxHeight: "500px", objectFit: "contain" }}
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
             </div>
           ) : (
@@ -293,7 +300,17 @@ export default function ResultPage() {
           {sharing ? "Generating card..." : "Share Your Fit 🔥"}
         </button>
 
-        <Link href="/" className="block w-full py-3 px-8 rounded-2xl font-bold text-base tracking-wide text-center bg-white/5 text-white/50 border border-white/10 hover:bg-white/10 transition-colors">
+        {/* Inspiration CTA */}
+        {scores && (
+          <Link
+            href={`/inspiration?vibe=${encodeURIComponent(scores.vibe)}&tags=${encodeURIComponent(scores.vibe.toLowerCase())}`}
+            className="block w-full py-3 px-8 rounded-2xl font-bold text-base tracking-wide text-center bg-white/5 text-white/50 border border-white/10 hover:bg-white/10 transition-colors"
+          >
+            ✨ Get Style Inspiration
+          </Link>
+        )}
+
+        <Link href="/" className="block w-full py-3 px-8 rounded-2xl font-bold text-base tracking-wide text-center bg-white/[0.03] text-white/30 border border-white/[0.06] hover:bg-white/5 transition-colors">
           Check Another Fit
         </Link>
       </div>
