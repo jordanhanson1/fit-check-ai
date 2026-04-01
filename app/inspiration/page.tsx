@@ -263,8 +263,6 @@ function InspirationContent() {
         item.title.toLowerCase().includes(q) ||
         item.vibe.toLowerCase().includes(q) ||
         item.tags.some((t) => t.includes(q));
-      // If fitTags exist and no active vibe/search filter, boost by relevance (still show all)
-      const _ = fitTags; // used for sorting below
       return matchesVibe && matchesSearch;
     }).sort((a, b) => {
       // Sort by relevance to fitTags if present
