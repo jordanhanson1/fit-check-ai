@@ -9,430 +9,231 @@ interface InspirationItem {
   title: string;
   vibe: string;
   tags: string[];
+  /** Primary image URL. Falls back to picsum then gradient on error. */
   image: string;
   size: "tall" | "medium" | "short";
 }
 
-// Reliable Unsplash photo IDs verified for fashion/outfit content
+// picsum seed for reliable editorial-style fallback images
+const picsumUrl = (seed: string, w = 400, h = 600) =>
+  `https://picsum.photos/seed/${seed}/${w}/${h}`;
+
 const ITEMS: InspirationItem[] = [
-  {
-    id: "1",
-    title: "Street Luxe Editorial",
-    vibe: "Street Luxe",
-    tags: ["streetwear", "luxury", "urban", "oversized", "designer"],
-    image: "https://images.unsplash.com/photo-1523381426568-c18dc7189b89?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "2",
-    title: "Dark Academia Layers",
-    vibe: "Dark Academia",
-    tags: ["dark academia", "layered", "vintage", "intellectual", "autumn"],
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "3",
-    title: "Clean Minimal Whites",
-    vibe: "Clean Minimal",
-    tags: ["minimal", "clean", "white", "simple", "neutral"],
-    image: "https://images.unsplash.com/photo-1515886930-d7ac80299fb8?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "4",
-    title: "Coastal Prep Summer",
-    vibe: "Coastal Prep",
-    tags: ["coastal", "preppy", "summer", "nautical", "blue", "white"],
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "5",
-    title: "Old Money Aesthetic",
-    vibe: "Old Money",
-    tags: ["old money", "classic", "tailored", "elegant", "neutral", "preppy"],
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "6",
-    title: "Y2K Chrome Dreams",
-    vibe: "Y2K Revival",
-    tags: ["y2k", "retro", "metallic", "chrome", "2000s", "flashy"],
-    image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "7",
-    title: "Soft Girl Pastels",
-    vibe: "Soft Girl",
-    tags: ["soft girl", "pastel", "kawaii", "pink", "cute", "feminine"],
-    image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "8",
-    title: "Gorpcore Utility",
-    vibe: "Gorpcore",
-    tags: ["gorpcore", "utility", "outdoor", "technical", "sporty", "functional"],
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "9",
-    title: "Techwear Future",
-    vibe: "Techwear",
-    tags: ["techwear", "futuristic", "black", "technical", "cyberpunk", "urban"],
-    image: "https://images.unsplash.com/photo-1551488831-00ddcef29ea5?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "10",
-    title: "Cottagecore Dream",
-    vibe: "Cottagecore",
-    tags: ["cottagecore", "floral", "feminine", "nature", "vintage", "soft"],
-    image: "https://images.unsplash.com/photo-1496747488892-14eaf55ddc55?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "11",
-    title: "Hypebeast Drops",
-    vibe: "Hypebeast",
-    tags: ["hypebeast", "sneakers", "streetwear", "hype", "bold", "logo"],
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "12",
-    title: "Boho Free Spirit",
-    vibe: "Boho Chic",
-    tags: ["boho", "bohemian", "flowy", "earthy", "layered", "festival"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "13",
-    title: "Business Slay",
-    vibe: "Business Casual",
-    tags: ["business casual", "office", "blazer", "professional", "sleek"],
-    image: "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "14",
-    title: "Grunge Revival",
-    vibe: "Grunge",
-    tags: ["grunge", "90s", "distressed", "denim", "band tee", "dark"],
-    image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "15",
-    title: "Indie Aesthetic",
-    vibe: "Indie",
-    tags: ["indie", "vintage", "thrifted", "eclectic", "artsy", "unique"],
-    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "16",
-    title: "Athleisure Done Right",
-    vibe: "Athleisure",
-    tags: ["athleisure", "sporty", "gym", "comfortable", "trendy", "active"],
-    image: "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "17",
-    title: "Color Pop Statement",
-    vibe: "Color Pop",
-    tags: ["colorful", "bold", "statement", "bright", "maximalist", "fun"],
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "18",
-    title: "Quiet Luxury",
-    vibe: "Quiet Luxury",
-    tags: ["quiet luxury", "understated", "quality", "minimal", "neutral", "elegant"],
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "19",
-    title: "Barbiecore Pink",
-    vibe: "Barbiecore",
-    tags: ["barbiecore", "pink", "feminine", "bold", "playful", "glam"],
-    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "20",
-    title: "Denim on Denim",
-    vibe: "Denim Obsessed",
-    tags: ["denim", "casual", "classic", "streetwear", "effortless", "blue"],
-    image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "21",
-    title: "Monochrome Power",
-    vibe: "Monochrome",
-    tags: ["monochrome", "tonal", "clean", "sleek", "minimal", "bold"],
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "22",
-    title: "Streetwear Classics",
-    vibe: "Classic Streetwear",
-    tags: ["streetwear", "classic", "sneakers", "casual", "urban", "everyday"],
-    image: "https://images.unsplash.com/photo-1556906781-9a412961a28c?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "23",
-    title: "Summer Linen Vibes",
-    vibe: "Summer Casual",
-    tags: ["summer", "linen", "relaxed", "casual", "breezy", "neutral"],
-    image: "https://images.unsplash.com/photo-1469334031814-f9ef6c8fae79?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "24",
-    title: "Editorial High Fashion",
-    vibe: "High Fashion",
-    tags: ["editorial", "high fashion", "avant garde", "bold", "statement", "runway"],
-    image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "25",
-    title: "Oversized Everything",
-    vibe: "Oversized",
-    tags: ["oversized", "baggy", "relaxed", "streetwear", "cozy", "layered"],
-    image: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "26",
-    title: "All Black Fit",
-    vibe: "All Black",
-    tags: ["all black", "dark", "minimal", "edgy", "sleek", "monochrome"],
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "27",
-    title: "Preppy Campus",
-    vibe: "Preppy",
-    tags: ["preppy", "collegiate", "polo", "chino", "classic", "american"],
-    image: "https://images.unsplash.com/photo-1610384023490-5a8a5f6d9f8a?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "28",
-    title: "Festival Fits",
-    vibe: "Festival",
-    tags: ["festival", "boho", "colorful", "accessories", "summer", "fun"],
-    image: "https://images.unsplash.com/photo-1563841930606-67e2bce48b78?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "29",
-    title: "Tailored Sharp",
-    vibe: "Tailored",
-    tags: ["tailored", "suit", "formal", "sharp", "classic", "menswear"],
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "30",
-    title: "Retro 70s Flare",
-    vibe: "Retro 70s",
-    tags: ["retro", "70s", "flare", "vintage", "brown", "earth tones"],
-    image: "https://images.unsplash.com/photo-1566206091558-7f218b696731?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "31",
-    title: "Cozy Knit Season",
-    vibe: "Cozy Knit",
-    tags: ["knit", "cozy", "autumn", "sweater", "warm", "layered"],
-    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "32",
-    title: "Resort Wear",
-    vibe: "Resort",
-    tags: ["resort", "tropical", "vacation", "breezy", "summer", "luxe"],
-    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "33",
-    title: "Punk Edge",
-    vibe: "Punk",
-    tags: ["punk", "edgy", "leather", "chains", "dark", "rebel"],
-    image: "https://images.unsplash.com/photo-1536766820879-059fec98ec0a?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "34",
-    title: "Normcore Basics",
-    vibe: "Normcore",
-    tags: ["normcore", "basics", "simple", "everyday", "neutral", "effortless"],
-    image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "35",
-    title: "Vintage Thrift",
-    vibe: "Vintage",
-    tags: ["vintage", "thrift", "retro", "unique", "secondhand", "classic"],
-    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "36",
-    title: "Neon Maximalist",
-    vibe: "Maximalist",
-    tags: ["maximalist", "neon", "bold", "colorful", "statement", "loud"],
-    image: "https://images.unsplash.com/photo-1529543544282-ea669407fca3?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "37",
-    title: "Leather & Moto",
-    vibe: "Moto",
-    tags: ["leather", "moto", "edgy", "jacket", "biker", "dark"],
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "38",
-    title: "Parisian Chic",
-    vibe: "Parisian",
-    tags: ["parisian", "french", "chic", "effortless", "classic", "elegant"],
-    image: "https://images.unsplash.com/photo-1496440737103-cd596325d314?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "39",
-    title: "Sporty Chic",
-    vibe: "Sporty Chic",
-    tags: ["sporty", "chic", "active", "feminine", "trendy", "lifestyle"],
-    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "40",
-    title: "Earth Tones",
-    vibe: "Earth Tones",
-    tags: ["earth tones", "natural", "brown", "beige", "warm", "organic"],
-    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "41",
-    title: "Luxe Loungewear",
-    vibe: "Luxe Lounge",
-    tags: ["loungewear", "luxury", "comfortable", "silk", "home", "relaxed"],
-    image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "42",
-    title: "Skater Style",
-    vibe: "Skater",
-    tags: ["skater", "streetwear", "casual", "baggy", "sneakers", "youth"],
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "43",
-    title: "Smart Casual",
-    vibe: "Smart Casual",
-    tags: ["smart casual", "polished", "everyday", "versatile", "clean", "office"],
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "44",
-    title: "Glam Night Out",
-    vibe: "Night Out Glam",
-    tags: ["glam", "night out", "party", "sparkle", "dressy", "bold"],
-    image: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "45",
-    title: "Tropical Prints",
-    vibe: "Tropical",
-    tags: ["tropical", "print", "colorful", "summer", "vacation", "bold"],
-    image: "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
-  {
-    id: "46",
-    title: "Power Suit",
-    vibe: "Power Suit",
-    tags: ["power suit", "blazer", "formal", "professional", "strong", "tailored"],
-    image: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?auto=format&fit=crop&w=400&q=80",
-    size: "medium",
-  },
-  {
-    id: "47",
-    title: "Streetwear Hoodie",
-    vibe: "Hoodie Culture",
-    tags: ["hoodie", "streetwear", "casual", "cozy", "hype", "everyday"],
-    image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=400&q=80",
-    size: "short",
-  },
-  {
-    id: "48",
-    title: "Minimal Scandinavian",
-    vibe: "Scandi Minimal",
-    tags: ["scandinavian", "minimal", "clean", "neutral", "structured", "quality"],
-    image: "https://images.unsplash.com/photo-1512201078372-9c6b2a0d528b?auto=format&fit=crop&w=400&q=80",
-    size: "tall",
-  },
+  // ── Street Luxe ─────────────────────────────────────────────────────────────
+  { id: "sl1", title: "Street Luxe Editorial", vibe: "Street Luxe", tags: ["streetwear", "luxury", "urban", "oversized", "designer"], image: "https://images.unsplash.com/photo-1523381426568-c18dc7189b89?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "sl2", title: "Designer Logomania", vibe: "Street Luxe", tags: ["streetwear", "luxury", "logo", "designer", "bold"], image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "sl3", title: "Off-Duty Luxe", vibe: "Street Luxe", tags: ["streetwear", "luxury", "casual", "elevated", "cool"], image: "https://images.unsplash.com/photo-1556906781-9a412961a28c?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "sl4", title: "Uptown Downtown", vibe: "Street Luxe", tags: ["streetwear", "luxury", "mix", "contrast", "urban"], image: picsumUrl("streetluxe4", 400, 560), size: "tall" },
+
+  // ── Dark Academia ────────────────────────────────────────────────────────────
+  { id: "da1", title: "Library Layers", vibe: "Dark Academia", tags: ["dark academia", "layered", "vintage", "intellectual", "autumn"], image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "da2", title: "Tweed & Turtleneck", vibe: "Dark Academia", tags: ["dark academia", "tweed", "turtleneck", "classic", "scholarly"], image: "https://images.unsplash.com/photo-1612902456551-b93d3a1ca7ef?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "da3", title: "Autumn Scholar", vibe: "Dark Academia", tags: ["dark academia", "autumn", "warm tones", "cozy", "literary"], image: picsumUrl("darkacademia3", 400, 480), size: "short" },
+  { id: "da4", title: "Moody Monochrome", vibe: "Dark Academia", tags: ["dark academia", "dark", "moody", "monochrome", "intellectual"], image: picsumUrl("darkacademia4", 400, 560), size: "medium" },
+
+  // ── Clean Minimal ────────────────────────────────────────────────────────────
+  { id: "cm1", title: "White on White", vibe: "Clean Minimal", tags: ["minimal", "clean", "white", "simple", "neutral"], image: "https://images.unsplash.com/photo-1515886930-d7ac80299fb8?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "cm2", title: "Sculptural Silhouette", vibe: "Clean Minimal", tags: ["minimal", "sculptural", "structure", "white", "clean"], image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "cm3", title: "Neutral Palette", vibe: "Clean Minimal", tags: ["minimal", "neutral", "beige", "simple", "effortless"], image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "cm4", title: "One Piece Statement", vibe: "Clean Minimal", tags: ["minimal", "statement", "clean", "modern", "simple"], image: picsumUrl("cleanminimal4", 400, 500), size: "short" },
+
+  // ── Coastal Prep ─────────────────────────────────────────────────────────────
+  { id: "cp1", title: "Nautical Stripes", vibe: "Coastal Prep", tags: ["coastal", "preppy", "stripes", "nautical", "blue", "white"], image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "cp2", title: "Harbor Club", vibe: "Coastal Prep", tags: ["coastal", "preppy", "summer", "marina", "linen"], image: "https://images.unsplash.com/photo-1469334031814-f9ef6c8fae79?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "cp3", title: "Regatta Ready", vibe: "Coastal Prep", tags: ["coastal", "preppy", "polo", "sailing", "classic"], image: picsumUrl("coastalprep3", 400, 480), size: "short" },
+  { id: "cp4", title: "East Coast Summer", vibe: "Coastal Prep", tags: ["coastal", "summer", "preppy", "relaxed", "classic"], image: picsumUrl("coastalprep4", 400, 560), size: "tall" },
+
+  // ── Old Money ────────────────────────────────────────────────────────────────
+  { id: "om1", title: "Old Money Classic", vibe: "Old Money", tags: ["old money", "classic", "tailored", "elegant", "neutral"], image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "om2", title: "Quiet Wealth", vibe: "Old Money", tags: ["old money", "quiet", "understated", "quality", "heritage"], image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "om3", title: "Country Club Casual", vibe: "Old Money", tags: ["old money", "country club", "polo", "khaki", "classic"], image: picsumUrl("oldmoney3", 400, 500), size: "short" },
+  { id: "om4", title: "Inherited Elegance", vibe: "Old Money", tags: ["old money", "elegant", "heritage", "tailored", "understated"], image: picsumUrl("oldmoney4", 400, 560), size: "medium" },
+
+  // ── Y2K Revival ──────────────────────────────────────────────────────────────
+  { id: "y2k1", title: "Chrome & Candy", vibe: "Y2K Revival", tags: ["y2k", "retro", "metallic", "chrome", "2000s"], image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "y2k2", title: "Butterfly Effect", vibe: "Y2K Revival", tags: ["y2k", "butterfly", "playful", "2000s", "pink"], image: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "y2k3", title: "Low Rise & Logos", vibe: "Y2K Revival", tags: ["y2k", "low rise", "logo", "2000s", "flashy"], image: picsumUrl("y2k3", 400, 480), size: "short" },
+  { id: "y2k4", title: "Glitter & Gloss", vibe: "Y2K Revival", tags: ["y2k", "glitter", "glam", "shiny", "2000s"], image: picsumUrl("y2k4", 400, 560), size: "tall" },
+
+  // ── Soft Girl ────────────────────────────────────────────────────────────────
+  { id: "sg1", title: "Pastel Dream", vibe: "Soft Girl", tags: ["soft girl", "pastel", "kawaii", "pink", "cute"], image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "sg2", title: "Bow & Blush", vibe: "Soft Girl", tags: ["soft girl", "bow", "pink", "feminine", "sweet"], image: picsumUrl("softgirl2", 400, 500), size: "medium" },
+  { id: "sg3", title: "Cloud Nine", vibe: "Soft Girl", tags: ["soft girl", "cloud", "white", "fluffy", "cute"], image: picsumUrl("softgirl3", 400, 560), size: "tall" },
+
+  // ── Gorpcore ─────────────────────────────────────────────────────────────────
+  { id: "gc1", title: "Trail Ready", vibe: "Gorpcore", tags: ["gorpcore", "utility", "outdoor", "technical", "sporty"], image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "gc2", title: "Arc'teryx Aesthetic", vibe: "Gorpcore", tags: ["gorpcore", "technical", "shell", "mountain", "functional"], image: picsumUrl("gorpcore2", 400, 480), size: "tall" },
+  { id: "gc3", title: "Urban Outdoors", vibe: "Gorpcore", tags: ["gorpcore", "urban", "outdoor", "functional", "layered"], image: picsumUrl("gorpcore3", 400, 500), size: "short" },
+
+  // ── Techwear ─────────────────────────────────────────────────────────────────
+  { id: "tw1", title: "Cyberpunk Utility", vibe: "Techwear", tags: ["techwear", "futuristic", "black", "technical", "cyberpunk"], image: "https://images.unsplash.com/photo-1551488831-00ddcef29ea5?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "tw2", title: "Cargo Future", vibe: "Techwear", tags: ["techwear", "cargo", "black", "functional", "futuristic"], image: picsumUrl("techwear2", 400, 480), size: "medium" },
+  { id: "tw3", title: "Modular Ninja", vibe: "Techwear", tags: ["techwear", "modular", "dark", "layered", "technical"], image: picsumUrl("techwear3", 400, 560), size: "short" },
+
+  // ── Cottagecore ──────────────────────────────────────────────────────────────
+  { id: "cc1", title: "Garden Party", vibe: "Cottagecore", tags: ["cottagecore", "floral", "feminine", "nature", "vintage"], image: "https://images.unsplash.com/photo-1496747488892-14eaf55ddc55?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "cc2", title: "Wildflower Dress", vibe: "Cottagecore", tags: ["cottagecore", "floral dress", "nature", "soft", "romantic"], image: picsumUrl("cottagecore2", 400, 560), size: "tall" },
+  { id: "cc3", title: "Basket & Blooms", vibe: "Cottagecore", tags: ["cottagecore", "pastoral", "feminine", "linen", "earthy"], image: picsumUrl("cottagecore3", 400, 480), size: "medium" },
+
+  // ── Hypebeast ────────────────────────────────────────────────────────────────
+  { id: "hb1", title: "Fresh Kicks", vibe: "Hypebeast", tags: ["hypebeast", "sneakers", "hype", "streetwear", "bold"], image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "hb2", title: "Drop Season", vibe: "Hypebeast", tags: ["hypebeast", "limited", "supreme", "collab", "rare"], image: "https://images.unsplash.com/photo-1556906781-9a412961a28c?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "hb3", title: "Grail Haul", vibe: "Hypebeast", tags: ["hypebeast", "grail", "sneakers", "hype", "collector"], image: picsumUrl("hypebeast3", 400, 500), size: "short" },
+  { id: "hb4", title: "Collab Heat", vibe: "Hypebeast", tags: ["hypebeast", "collab", "exclusive", "streetwear", "limited"], image: picsumUrl("hypebeast4", 400, 560), size: "medium" },
+
+  // ── Boho Chic ────────────────────────────────────────────────────────────────
+  { id: "bc1", title: "Free Spirit", vibe: "Boho Chic", tags: ["boho", "bohemian", "flowy", "earthy", "festival"], image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "bc2", title: "Desert Wanderer", vibe: "Boho Chic", tags: ["boho", "desert", "earthy", "fringe", "layered"], image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "bc3", title: "Maxi & Macramé", vibe: "Boho Chic", tags: ["boho", "maxi", "macramé", "natural", "relaxed"], image: picsumUrl("bohochic3", 400, 500), size: "short" },
+
+  // ── Business Casual ──────────────────────────────────────────────────────────
+  { id: "biz1", title: "Power Blazer", vibe: "Business Casual", tags: ["business casual", "blazer", "office", "professional"], image: "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "biz2", title: "Boardroom Chic", vibe: "Business Casual", tags: ["business casual", "chic", "polished", "office", "sleek"], image: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "biz3", title: "Smart Suit", vibe: "Business Casual", tags: ["business casual", "suit", "smart", "tailored", "professional"], image: picsumUrl("bizcasual3", 400, 480), size: "medium" },
+
+  // ── Grunge ───────────────────────────────────────────────────────────────────
+  { id: "gr1", title: "Band Tee Grunge", vibe: "Grunge", tags: ["grunge", "band tee", "90s", "distressed", "dark"], image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "gr2", title: "Flannel Season", vibe: "Grunge", tags: ["grunge", "flannel", "denim", "90s", "casual"], image: picsumUrl("grunge2", 400, 560), size: "tall" },
+  { id: "gr3", title: "Combat Ready", vibe: "Grunge", tags: ["grunge", "combat boots", "dark", "edgy", "90s"], image: picsumUrl("grunge3", 400, 480), size: "short" },
+
+  // ── Indie ────────────────────────────────────────────────────────────────────
+  { id: "in1", title: "Thrift Store Find", vibe: "Indie", tags: ["indie", "thrift", "vintage", "eclectic", "unique"], image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "in2", title: "Record Store Regular", vibe: "Indie", tags: ["indie", "vinyl", "90s", "casual", "artsy"], image: picsumUrl("indie2", 400, 500), size: "medium" },
+  { id: "in3", title: "Art Hoe Aesthetic", vibe: "Indie", tags: ["indie", "art", "colorful", "creative", "unique"], image: picsumUrl("indie3", 400, 480), size: "short" },
+
+  // ── Athleisure ───────────────────────────────────────────────────────────────
+  { id: "at1", title: "Gym to Street", vibe: "Athleisure", tags: ["athleisure", "sporty", "gym", "comfortable", "trendy"], image: "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "at2", title: "Lululemon Moment", vibe: "Athleisure", tags: ["athleisure", "yoga", "leggings", "sporty", "chic"], image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "at3", title: "Sporty Luxe", vibe: "Athleisure", tags: ["athleisure", "luxury", "sporty", "elevated", "active"], image: picsumUrl("athleisure3", 400, 500), size: "short" },
+  { id: "at4", title: "Core Aesthetic", vibe: "Athleisure", tags: ["athleisure", "core", "workout", "set", "matching"], image: picsumUrl("athleisure4", 400, 560), size: "medium" },
+
+  // ── Color Pop ────────────────────────────────────────────────────────────────
+  { id: "col1", title: "Dopamine Dressing", vibe: "Color Pop", tags: ["colorful", "bold", "bright", "dopamine", "fun"], image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "col2", title: "Maximalist Mix", vibe: "Color Pop", tags: ["colorful", "maximalist", "pattern", "bold", "statement"], image: picsumUrl("colorpop2", 400, 560), size: "tall" },
+  { id: "col3", title: "Colour Clash", vibe: "Color Pop", tags: ["colorful", "clash", "unexpected", "bold", "experimental"], image: picsumUrl("colorpop3", 400, 480), size: "medium" },
+
+  // ── Quiet Luxury ─────────────────────────────────────────────────────────────
+  { id: "ql1", title: "The Row Aesthetic", vibe: "Quiet Luxury", tags: ["quiet luxury", "understated", "quality", "minimal", "neutral"], image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "ql2", title: "Stealth Wealth", vibe: "Quiet Luxury", tags: ["quiet luxury", "stealth", "no logo", "premium", "elegant"], image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "ql3", title: "Cashmere Moment", vibe: "Quiet Luxury", tags: ["quiet luxury", "cashmere", "soft", "neutral", "quality"], image: picsumUrl("quietlux3", 400, 500), size: "short" },
+  { id: "ql4", title: "Elevated Basics", vibe: "Quiet Luxury", tags: ["quiet luxury", "basics", "elevated", "clean", "timeless"], image: picsumUrl("quietlux4", 400, 560), size: "tall" },
+
+  // ── Barbiecore ───────────────────────────────────────────────────────────────
+  { id: "bar1", title: "Hot Pink Everything", vibe: "Barbiecore", tags: ["barbiecore", "pink", "bold", "playful", "glam"], image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "bar2", title: "Dream House Drip", vibe: "Barbiecore", tags: ["barbiecore", "pink", "girly", "fun", "statement"], image: picsumUrl("barbiecore2", 400, 560), size: "tall" },
+  { id: "bar3", title: "Plastic Fantastic", vibe: "Barbiecore", tags: ["barbiecore", "plastic", "shiny", "pink", "camp"], image: picsumUrl("barbiecore3", 400, 480), size: "short" },
+
+  // ── Denim ────────────────────────────────────────────────────────────────────
+  { id: "den1", title: "Double Denim", vibe: "Denim Obsessed", tags: ["denim", "double denim", "casual", "classic", "blue"], image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "den2", title: "Vintage Wash", vibe: "Denim Obsessed", tags: ["denim", "vintage", "wash", "light blue", "retro"], image: picsumUrl("denim2", 400, 560), size: "tall" },
+  { id: "den3", title: "Raw Selvedge", vibe: "Denim Obsessed", tags: ["denim", "raw", "selvedge", "quality", "fitted"], image: picsumUrl("denim3", 400, 480), size: "medium" },
+
+  // ── Monochrome ───────────────────────────────────────────────────────────────
+  { id: "mono1", title: "All Black Everything", vibe: "Monochrome", tags: ["monochrome", "all black", "sleek", "dark", "edgy"], image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "mono2", title: "Tonal Dressing", vibe: "Monochrome", tags: ["monochrome", "tonal", "clean", "coordinated", "minimal"], image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "mono3", title: "Greige Wave", vibe: "Monochrome", tags: ["monochrome", "greige", "neutral", "tonal", "elevated"], image: picsumUrl("monochrome3", 400, 480), size: "short" },
+
+  // ── Classic Streetwear ───────────────────────────────────────────────────────
+  { id: "csw1", title: "Hoodie & Cargo", vibe: "Classic Streetwear", tags: ["streetwear", "hoodie", "cargo", "casual", "hype"], image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "csw2", title: "Sneaker Stack", vibe: "Classic Streetwear", tags: ["streetwear", "sneakers", "hype", "casual", "clean"], image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "csw3", title: "Tee & Joggers", vibe: "Classic Streetwear", tags: ["streetwear", "tee", "joggers", "everyday", "clean"], image: picsumUrl("classicstreet3", 400, 480), size: "medium" },
+
+  // ── High Fashion ─────────────────────────────────────────────────────────────
+  { id: "hf1", title: "Runway Moment", vibe: "High Fashion", tags: ["editorial", "high fashion", "avant garde", "bold", "runway"], image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "hf2", title: "Sculptural Gown", vibe: "High Fashion", tags: ["high fashion", "sculptural", "couture", "art", "dramatic"], image: picsumUrl("highfashion2", 400, 600), size: "medium" },
+  { id: "hf3", title: "Deconstructed", vibe: "High Fashion", tags: ["high fashion", "deconstructed", "experimental", "avant garde"], image: picsumUrl("highfashion3", 400, 560), size: "short" },
+
+  // ── Power Suit ───────────────────────────────────────────────────────────────
+  { id: "ps1", title: "Corner Office", vibe: "Power Suit", tags: ["power suit", "blazer", "formal", "professional", "strong"], image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "ps2", title: "Boss Fit", vibe: "Power Suit", tags: ["power suit", "boss", "strong", "tailored", "confident"], image: "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "ps3", title: "Checked Out", vibe: "Power Suit", tags: ["power suit", "check", "pattern", "tailored", "bold"], image: picsumUrl("powersuit3", 400, 500), size: "short" },
+
+  // ── Moto / Leather ───────────────────────────────────────────────────────────
+  { id: "mot1", title: "Biker Edge", vibe: "Moto", tags: ["leather", "moto", "biker", "edgy", "jacket"], image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "mot2", title: "Leather Season", vibe: "Moto", tags: ["leather", "moto", "dark", "cool", "rock"], image: picsumUrl("moto2", 400, 480), size: "medium" },
+  { id: "mot3", title: "Rebel Drip", vibe: "Moto", tags: ["leather", "rebel", "boots", "dark", "attitude"], image: picsumUrl("moto3", 400, 560), size: "short" },
+
+  // ── Parisian ─────────────────────────────────────────────────────────────────
+  { id: "par1", title: "Left Bank Chic", vibe: "Parisian", tags: ["parisian", "french", "chic", "effortless", "classic"], image: "https://images.unsplash.com/photo-1496440737103-cd596325d314?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "par2", title: "Beret & Baguette", vibe: "Parisian", tags: ["parisian", "beret", "french", "casual chic", "elegant"], image: picsumUrl("parisian2", 400, 560), size: "tall" },
+  { id: "par3", title: "Riviera Escape", vibe: "Parisian", tags: ["parisian", "riviera", "summery", "relaxed", "french"], image: picsumUrl("parisian3", 400, 480), size: "medium" },
+
+  // ── Earth Tones ──────────────────────────────────────────────────────────────
+  { id: "et1", title: "Terracotta Season", vibe: "Earth Tones", tags: ["earth tones", "terracotta", "warm", "natural", "cozy"], image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "et2", title: "Desert Palette", vibe: "Earth Tones", tags: ["earth tones", "desert", "brown", "sand", "organic"], image: picsumUrl("earthtones2", 400, 560), size: "tall" },
+  { id: "et3", title: "Forest Mood", vibe: "Earth Tones", tags: ["earth tones", "forest", "green", "olive", "nature"], image: picsumUrl("earthtones3", 400, 480), size: "short" },
+
+  // ── Night Out Glam ───────────────────────────────────────────────────────────
+  { id: "nog1", title: "Disco Era", vibe: "Night Out Glam", tags: ["glam", "disco", "sparkle", "night out", "bold"], image: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "nog2", title: "Club Ready", vibe: "Night Out Glam", tags: ["glam", "club", "mini dress", "heels", "glitter"], image: picsumUrl("nightout2", 400, 500), size: "medium" },
+  { id: "nog3", title: "Red Carpet Serve", vibe: "Night Out Glam", tags: ["glam", "red carpet", "gown", "statement", "elegant"], image: picsumUrl("nightout3", 400, 560), size: "short" },
+
+  // ── Tropical ─────────────────────────────────────────────────────────────────
+  { id: "trop1", title: "Island Print", vibe: "Tropical", tags: ["tropical", "print", "colorful", "summer", "vacation"], image: "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "trop2", title: "Linen in Tulum", vibe: "Tropical", tags: ["tropical", "linen", "white", "relaxed", "resort"], image: picsumUrl("tropical2", 400, 560), size: "tall" },
+  { id: "trop3", title: "Woven & Wild", vibe: "Tropical", tags: ["tropical", "woven", "handmade", "earthy", "resort"], image: picsumUrl("tropical3", 400, 480), size: "medium" },
+
+  // ── Scandi Minimal ───────────────────────────────────────────────────────────
+  { id: "scan1", title: "Stockholm Streets", vibe: "Scandi Minimal", tags: ["scandinavian", "minimal", "clean", "structured", "neutral"], image: "https://images.unsplash.com/photo-1512201078372-9c6b2a0d528b?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "scan2", title: "Nordic Layers", vibe: "Scandi Minimal", tags: ["scandinavian", "layers", "winter", "neutral", "quality"], image: picsumUrl("scandi2", 400, 500), size: "medium" },
+  { id: "scan3", title: "Copenhagen Cool", vibe: "Scandi Minimal", tags: ["scandinavian", "cool", "effortless", "modern", "clean"], image: picsumUrl("scandi3", 400, 480), size: "short" },
+
+  // ── Skater ───────────────────────────────────────────────────────────────────
+  { id: "sk1", title: "Skate Park Ready", vibe: "Skater", tags: ["skater", "baggy", "casual", "street", "sneakers"], image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "sk2", title: "Vans & Flannel", vibe: "Skater", tags: ["skater", "vans", "flannel", "casual", "youth"], image: picsumUrl("skater2", 400, 560), size: "tall" },
+  { id: "sk3", title: "Grip Tape Aesthetic", vibe: "Skater", tags: ["skater", "graphic tee", "shorts", "relaxed", "fun"], image: picsumUrl("skater3", 400, 480), size: "short" },
+
+  // ── Vintage ──────────────────────────────────────────────────────────────────
+  { id: "vin1", title: "Decades Mix", vibe: "Vintage", tags: ["vintage", "decades", "thrift", "unique", "retro"], image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "vin2", title: "60s Mod Revival", vibe: "Vintage", tags: ["vintage", "60s", "mod", "shift dress", "geometric"], image: picsumUrl("vintage2", 400, 560), size: "tall" },
+  { id: "vin3", title: "80s Power Vibes", vibe: "Vintage", tags: ["vintage", "80s", "bold", "shoulder pads", "statement"], image: picsumUrl("vintage3", 400, 480), size: "medium" },
 ];
 
 const ALL_VIBES = Array.from(new Set(ITEMS.map((i) => i.vibe)));
 
-// Gradient placeholders shown when an image fails to load
+// Branded gradient placeholders for final fallback
 const FALLBACK_GRADIENTS = [
-  "linear-gradient(135deg, #ff2d78 0%, #9b51e0 100%)",
-  "linear-gradient(135deg, #9b51e0 0%, #00d4ff 100%)",
-  "linear-gradient(135deg, #ff6b6b 0%, #feca57 100%)",
-  "linear-gradient(135deg, #48dbfb 0%, #ff9ff3 100%)",
-  "linear-gradient(135deg, #1dd1a1 0%, #00d4ff 100%)",
+  "linear-gradient(135deg,#ff2d78 0%,#9b51e0 100%)",
+  "linear-gradient(135deg,#9b51e0 0%,#00d4ff 100%)",
+  "linear-gradient(135deg,#ff6b6b 0%,#feca57 100%)",
+  "linear-gradient(135deg,#48dbfb 0%,#ff9ff3 100%)",
+  "linear-gradient(135deg,#1dd1a1 0%,#00d4ff 100%)",
+  "linear-gradient(135deg,#ff9f43 0%,#ee5a24 100%)",
 ];
 
 function InspirationCard({ item }: { item: InspirationItem }) {
-  const [imgFailed, setImgFailed] = useState(false);
+  const [src, setSrc] = useState(item.image);
+  const [failed, setFailed] = useState(false);
+
   const heightClass =
     item.size === "tall" ? "h-80" : item.size === "medium" ? "h-60" : "h-44";
-  const fallback = FALLBACK_GRADIENTS[parseInt(item.id) % FALLBACK_GRADIENTS.length];
+  const gradient = FALLBACK_GRADIENTS[parseInt(item.id.replace(/\D/g, "") || "0") % FALLBACK_GRADIENTS.length];
+
+  const handleError = () => {
+    // If Unsplash failed and we haven't tried picsum yet, fall back to picsum
+    if (!src.includes("picsum")) {
+      const seed = encodeURIComponent(item.id + item.vibe);
+      setSrc(`https://picsum.photos/seed/${seed}/400/600`);
+    } else {
+      setFailed(true);
+    }
+  };
 
   return (
     <div className="break-inside-avoid mb-3 group cursor-pointer">
-      <div
-        className={`relative rounded-2xl overflow-hidden border border-white/10 ${heightClass} transition-transform duration-200 group-hover:scale-[1.02]`}
-      >
-        {imgFailed ? (
-          <div className="w-full h-full" style={{ background: fallback }} />
+      <div className={`relative rounded-2xl overflow-hidden border border-white/10 ${heightClass} transition-transform duration-200 group-hover:scale-[1.02]`}>
+        {failed ? (
+          <div className="w-full h-full flex items-end" style={{ background: gradient }}>
+            <div className="w-full h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+          </div>
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={item.image}
+            src={src}
             alt={item.title}
             className="w-full h-full object-cover object-top"
             loading="lazy"
-            onError={() => setImgFailed(true)}
+            onError={handleError}
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
@@ -486,55 +287,36 @@ function InspirationContent() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0f] flex flex-col">
-      {/* Header */}
       <nav className="px-5 pt-6 pb-4 flex items-center justify-between sticky top-0 bg-[#0a0a0f]/95 backdrop-blur-sm z-10 border-b border-white/5">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm font-medium"
-        >
+        <Link href="/" className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm font-medium">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
           </svg>
           Back
         </Link>
-        <h1 className="text-white font-black text-lg tracking-tight gradient-text">INSPO</h1>
+        <h1 className="font-black text-lg tracking-tight gradient-text">INSPO</h1>
         <div className="w-14" />
       </nav>
 
       <div className="px-4 pt-4 pb-2 max-w-2xl mx-auto w-full">
-        {/* Fitcheck context banner */}
         {hasFitContext && (
           <div className="mb-4 px-4 py-3 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3">
             <span className="text-xl">✨</span>
             <div>
               <p className="text-white font-bold text-sm">Styled for your fit</p>
               <p className="text-white/40 text-xs">
-                Showing styles based on your{" "}
-                <span className="text-[#ff2d78] font-semibold">{vibeParam}</span> vibe
+                Based on your <span className="text-[#ff2d78] font-semibold">{vibeParam}</span> vibe
               </p>
             </div>
-            <button
-              onClick={() => setActiveVibe(null)}
-              className="ml-auto text-white/30 hover:text-white/60 transition-colors text-xs font-medium"
-            >
+            <button onClick={() => setActiveVibe(null)} className="ml-auto text-white/30 hover:text-white/60 transition-colors text-xs font-medium">
               Clear
             </button>
           </div>
         )}
 
-        {/* Search */}
         <div className="relative mb-4">
-          <svg
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path strokeLinecap="round" d="M21 21l-4.35-4.35" />
+          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8" /><path strokeLinecap="round" d="M21 21l-4.35-4.35" />
           </svg>
           <input
             type="text"
@@ -545,15 +327,10 @@ function InspirationContent() {
           />
         </div>
 
-        {/* Vibe filter chips */}
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
           <button
             onClick={() => setActiveVibe(null)}
-            className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
-              activeVibe === null
-                ? "bg-gradient-to-r from-[#ff2d78] to-[#9b51e0] text-white border-transparent"
-                : "bg-white/5 text-white/50 border-white/10 hover:border-white/20"
-            }`}
+            className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${activeVibe === null ? "bg-gradient-to-r from-[#ff2d78] to-[#9b51e0] text-white border-transparent" : "bg-white/5 text-white/50 border-white/10 hover:border-white/20"}`}
           >
             All
           </button>
@@ -561,11 +338,7 @@ function InspirationContent() {
             <button
               key={vibe}
               onClick={() => setActiveVibe(activeVibe === vibe ? null : vibe)}
-              className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all border whitespace-nowrap ${
-                activeVibe === vibe
-                  ? "bg-gradient-to-r from-[#ff2d78] to-[#9b51e0] text-white border-transparent"
-                  : "bg-white/5 text-white/50 border-white/10 hover:border-white/20"
-              }`}
+              className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all border whitespace-nowrap ${activeVibe === vibe ? "bg-gradient-to-r from-[#ff2d78] to-[#9b51e0] text-white border-transparent" : "bg-white/5 text-white/50 border-white/10 hover:border-white/20"}`}
             >
               {vibe}
             </button>
@@ -573,7 +346,6 @@ function InspirationContent() {
         </div>
       </div>
 
-      {/* Results count */}
       <div className="px-4 pb-2 max-w-2xl mx-auto w-full">
         <p className="text-white/30 text-xs font-medium">
           {filtered.length} style{filtered.length !== 1 ? "s" : ""}
@@ -581,7 +353,6 @@ function InspirationContent() {
         </p>
       </div>
 
-      {/* Masonry grid */}
       <div className="px-4 pb-8 max-w-2xl mx-auto w-full">
         {filtered.length === 0 ? (
           <div className="text-center py-16">
@@ -603,13 +374,11 @@ function InspirationContent() {
 
 export default function InspirationPage() {
   return (
-    <Suspense
-      fallback={
-        <main className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#ff2d78] border-t-transparent animate-spin" />
-        </main>
-      }
-    >
+    <Suspense fallback={
+      <main className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-[#ff2d78] border-t-transparent animate-spin" />
+      </main>
+    }>
       <InspirationContent />
     </Suspense>
   );
