@@ -14,9 +14,6 @@ interface InspirationItem {
   size: "tall" | "medium" | "short";
 }
 
-// picsum seed for reliable editorial-style fallback images
-const picsumUrl = (seed: string, w = 400, h = 600) =>
-  `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
 const ITEMS: InspirationItem[] = [
   // ── Street Luxe ─────────────────────────────────────────────────────────────
