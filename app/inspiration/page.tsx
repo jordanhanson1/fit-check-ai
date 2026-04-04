@@ -38,10 +38,10 @@ const ITEMS: InspirationItem[] = [
   { id: "cp1", title: "Nautical Stripes", vibe: "Coastal Prep", tags: ["coastal", "preppy", "stripes", "nautical", "blue", "white"], image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "cp2", title: "Harbor Club", vibe: "Coastal Prep", tags: ["coastal", "preppy", "summer", "marina", "linen"], image: "https://images.unsplash.com/photo-1469334031814-f9ef6c8fae79?auto=format&fit=crop&w=400&q=80", size: "medium" },
   { id: "cp3", title: "Regatta Ready", vibe: "Coastal Prep", tags: ["coastal", "preppy", "polo", "sailing", "classic"], image: "https://images.unsplash.com/photo-1531734819660-fed5bc4cfb3c?auto=format&fit=crop&w=400&q=80", size: "short" },
-  { id: "cp4", title: "East Coast Summer", vibe: "Coastal Prep", tags: ["coastal", "summer", "preppy", "relaxed", "classic"], image: "https://images.unsplash.com/photo-1569397288884-4d43d6738fbd?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "cp4", title: "East Coast Summer", vibe: "Coastal Prep", tags: ["coastal", "summer", "preppy", "relaxed", "classic"], image: "https://images.unsplash.com/photo-1715765354354-c5e5a84e1704?auto=format&fit=crop&w=400&q=80", size: "tall" },
 
   // ── Old Money ────────────────────────────────────────────────────────────────
-  { id: "om1", title: "Old Money Classic", vibe: "Old Money", tags: ["old money", "classic", "tailored", "elegant", "neutral"], image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "om1", title: "Old Money Classic", vibe: "Old Money", tags: ["old money", "classic", "tailored", "elegant", "neutral"], image: "https://images.unsplash.com/photo-1716807335126-54532f2ed0c3?auto=format&fit=crop&w=400&q=80", size: "medium" },
   { id: "om2", title: "Quiet Wealth", vibe: "Old Money", tags: ["old money", "quiet", "understated", "quality", "heritage"], image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "om3", title: "Country Club Casual", vibe: "Old Money", tags: ["old money", "country club", "polo", "khaki", "classic"], image: "https://images.unsplash.com/photo-1500336624523-d727130c3328?auto=format&fit=crop&w=400&q=80", size: "short" },
   { id: "om4", title: "Inherited Elegance", vibe: "Old Money", tags: ["old money", "elegant", "heritage", "tailored", "understated"], image: "https://images.unsplash.com/photo-1768961284589-ac7fd41e1174?auto=format&fit=crop&w=400&q=80", size: "medium" },
@@ -69,7 +69,7 @@ const ITEMS: InspirationItem[] = [
 
   // ── Cottagecore ──────────────────────────────────────────────────────────────
   { id: "cc1", title: "Garden Party", vibe: "Cottagecore", tags: ["cottagecore", "floral", "feminine", "nature", "vintage"], image: "https://images.unsplash.com/photo-1496747488892-14eaf55ddc55?auto=format&fit=crop&w=400&q=80", size: "short" },
-  { id: "cc2", title: "Wildflower Dress", vibe: "Cottagecore", tags: ["cottagecore", "floral dress", "nature", "soft", "romantic"], image: "https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "cc2", title: "Wildflower Dress", vibe: "Cottagecore", tags: ["cottagecore", "floral dress", "nature", "soft", "romantic"], image: "https://images.unsplash.com/photo-1612821996907-d3710d7f1351?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "cc3", title: "Basket & Blooms", vibe: "Cottagecore", tags: ["cottagecore", "pastoral", "feminine", "linen", "earthy"], image: "https://images.unsplash.com/photo-1761665758660-7f363d45c62f?auto=format&fit=crop&w=400&q=80", size: "medium" },
 
   // ── Hypebeast ────────────────────────────────────────────────────────────────
@@ -80,17 +80,17 @@ const ITEMS: InspirationItem[] = [
 
   // ── Boho Chic ────────────────────────────────────────────────────────────────
   { id: "bc1", title: "Free Spirit", vibe: "Boho Chic", tags: ["boho", "bohemian", "flowy", "earthy", "festival"], image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80", size: "tall" },
-  { id: "bc2", title: "Desert Wanderer", vibe: "Boho Chic", tags: ["boho", "desert", "earthy", "fringe", "layered"], image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=400&q=80", size: "medium" },
-  { id: "bc3", title: "Maxi & Macramé", vibe: "Boho Chic", tags: ["boho", "maxi", "macramé", "natural", "relaxed"], image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "bc2", title: "Desert Wanderer", vibe: "Boho Chic", tags: ["boho", "desert", "earthy", "fringe", "layered"], image: "https://images.unsplash.com/photo-1550153969-335d2fbeb378?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "bc3", title: "Maxi & Macramé", vibe: "Boho Chic", tags: ["boho", "maxi", "macramé", "natural", "relaxed"], image: "https://images.unsplash.com/photo-1581437152838-b666e2bb6c73?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Business Casual ──────────────────────────────────────────────────────────
   { id: "biz1", title: "Power Blazer", vibe: "Business Casual", tags: ["business casual", "blazer", "office", "professional"], image: "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=400&q=80", size: "short" },
-  { id: "biz2", title: "Boardroom Chic", vibe: "Business Casual", tags: ["business casual", "chic", "polished", "office", "sleek"], image: "https://images.unsplash.com/photo-1580651315530-69c8e0026377?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "biz2", title: "Boardroom Chic", vibe: "Business Casual", tags: ["business casual", "chic", "polished", "office", "sleek"], image: "https://images.unsplash.com/photo-1762341120551-6a021d18933a?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "biz3", title: "Smart Suit", vibe: "Business Casual", tags: ["business casual", "suit", "smart", "tailored", "professional"], image: "https://images.unsplash.com/photo-1544913988-3cbfca41b9f2?auto=format&fit=crop&w=400&q=80", size: "medium" },
 
   // ── Grunge ───────────────────────────────────────────────────────────────────
-  { id: "gr1", title: "Band Tee Grunge", vibe: "Grunge", tags: ["grunge", "band tee", "90s", "distressed", "dark"], image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=400&q=80", size: "medium" },
-  { id: "gr2", title: "Flannel Season", vibe: "Grunge", tags: ["grunge", "flannel", "denim", "90s", "casual"], image: "https://images.unsplash.com/photo-1519984388953-d2406bc725e1?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "gr1", title: "Band Tee Grunge", vibe: "Grunge", tags: ["grunge", "band tee", "90s", "distressed", "dark"], image: "https://images.unsplash.com/photo-1560791365-ee70cfa6b167?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "gr2", title: "Flannel Season", vibe: "Grunge", tags: ["grunge", "flannel", "denim", "90s", "casual"], image: "https://images.unsplash.com/photo-1746044506526-38713273e129?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "gr3", title: "Combat Ready", vibe: "Grunge", tags: ["grunge", "combat boots", "dark", "edgy", "90s"], image: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Indie ────────────────────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ const ITEMS: InspirationItem[] = [
 
   // ── Quiet Luxury ─────────────────────────────────────────────────────────────
   { id: "ql1", title: "The Row Aesthetic", vibe: "Quiet Luxury", tags: ["quiet luxury", "understated", "quality", "minimal", "neutral"], image: "https://images.unsplash.com/photo-1760580335310-650fe79bc4d8?auto=format&fit=crop&w=400&q=80", size: "tall" },
-  { id: "ql2", title: "Stealth Wealth", vibe: "Quiet Luxury", tags: ["quiet luxury", "stealth", "no logo", "premium", "elegant"], image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "ql2", title: "Stealth Wealth", vibe: "Quiet Luxury", tags: ["quiet luxury", "stealth", "no logo", "premium", "elegant"], image: "https://images.unsplash.com/photo-1668107510198-81eeb46ebe21?auto=format&fit=crop&w=400&q=80", size: "medium" },
   { id: "ql3", title: "Cashmere Moment", vibe: "Quiet Luxury", tags: ["quiet luxury", "cashmere", "soft", "neutral", "quality"], image: "https://images.unsplash.com/photo-1740409497196-90c3b016d846?auto=format&fit=crop&w=400&q=80", size: "short" },
   { id: "ql4", title: "Elevated Basics", vibe: "Quiet Luxury", tags: ["quiet luxury", "basics", "elevated", "clean", "timeless"], image: "https://images.unsplash.com/photo-1610918018886-598a97d83386?auto=format&fit=crop&w=400&q=80", size: "tall" },
 
@@ -128,16 +128,16 @@ const ITEMS: InspirationItem[] = [
   // ── Monochrome ───────────────────────────────────────────────────────────────
   { id: "mono1", title: "All Black Everything", vibe: "Monochrome", tags: ["monochrome", "all black", "sleek", "dark", "edgy"], image: "https://images.unsplash.com/photo-1744812103771-711dcb74ea3f?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "mono2", title: "Tonal Dressing", vibe: "Monochrome", tags: ["monochrome", "tonal", "clean", "coordinated", "minimal"], image: "https://images.unsplash.com/photo-1683642766177-8ae7c4be03cb?auto=format&fit=crop&w=400&q=80", size: "medium" },
-  { id: "mono3", title: "Greige Wave", vibe: "Monochrome", tags: ["monochrome", "greige", "neutral", "tonal", "elevated"], image: "https://images.unsplash.com/photo-1563642421748-5047b6585a4a?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "mono3", title: "Greige Wave", vibe: "Monochrome", tags: ["monochrome", "greige", "neutral", "tonal", "elevated"], image: "https://images.unsplash.com/photo-1763766274625-3b502e267f26?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Classic Streetwear ───────────────────────────────────────────────────────
   { id: "csw1", title: "Hoodie & Cargo", vibe: "Classic Streetwear", tags: ["streetwear", "hoodie", "cargo", "casual", "hype"], image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=400&q=80", size: "short" },
   { id: "csw2", title: "Sneaker Stack", vibe: "Classic Streetwear", tags: ["streetwear", "sneakers", "hype", "casual", "clean"], image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=80", size: "tall" },
-  { id: "csw3", title: "Tee & Joggers", vibe: "Classic Streetwear", tags: ["streetwear", "tee", "joggers", "everyday", "clean"], image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "csw3", title: "Tee & Joggers", vibe: "Classic Streetwear", tags: ["streetwear", "tee", "joggers", "everyday", "clean"], image: "https://images.unsplash.com/photo-1667844771157-bf231c03c197?auto=format&fit=crop&w=400&q=80", size: "medium" },
 
   // ── High Fashion ─────────────────────────────────────────────────────────────
   { id: "hf1", title: "Runway Moment", vibe: "High Fashion", tags: ["editorial", "high fashion", "avant garde", "bold", "runway"], image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=400&q=80", size: "tall" },
-  { id: "hf2", title: "Sculptural Gown", vibe: "High Fashion", tags: ["high fashion", "sculptural", "couture", "art", "dramatic"], image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "hf2", title: "Sculptural Gown", vibe: "High Fashion", tags: ["high fashion", "sculptural", "couture", "art", "dramatic"], image: "https://images.unsplash.com/photo-1773574488221-08b2883a1c80?auto=format&fit=crop&w=400&q=80", size: "medium" },
   { id: "hf3", title: "Deconstructed", vibe: "High Fashion", tags: ["high fashion", "deconstructed", "experimental", "avant garde"], image: "https://images.unsplash.com/photo-1485462537746-965f33f57f69?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Power Suit ───────────────────────────────────────────────────────────────
@@ -146,17 +146,17 @@ const ITEMS: InspirationItem[] = [
   { id: "ps3", title: "Checked Out", vibe: "Power Suit", tags: ["power suit", "check", "pattern", "tailored", "bold"], image: "https://images.unsplash.com/photo-1645990490574-4dba494b554a?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Moto / Leather ───────────────────────────────────────────────────────────
-  { id: "mot1", title: "Biker Edge", vibe: "Moto", tags: ["leather", "moto", "biker", "edgy", "jacket"], image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "mot1", title: "Biker Edge", vibe: "Moto", tags: ["leather", "moto", "biker", "edgy", "jacket"], image: "https://images.unsplash.com/photo-1646228843811-1a75ac4f04f7?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "mot2", title: "Leather Season", vibe: "Moto", tags: ["leather", "moto", "dark", "cool", "rock"], image: "https://images.unsplash.com/photo-1695014192221-0f664d2a9b8c?auto=format&fit=crop&w=400&q=80", size: "medium" },
   { id: "mot3", title: "Rebel Drip", vibe: "Moto", tags: ["leather", "rebel", "boots", "dark", "attitude"], image: "https://images.unsplash.com/photo-1683121231638-4100d7f6deb2?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Parisian ─────────────────────────────────────────────────────────────────
   { id: "par1", title: "Left Bank Chic", vibe: "Parisian", tags: ["parisian", "french", "chic", "effortless", "classic"], image: "https://images.unsplash.com/photo-1496440737103-cd596325d314?auto=format&fit=crop&w=400&q=80", size: "short" },
-  { id: "par2", title: "Beret & Baguette", vibe: "Parisian", tags: ["parisian", "beret", "french", "casual chic", "elegant"], image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "par2", title: "Beret & Baguette", vibe: "Parisian", tags: ["parisian", "beret", "french", "casual chic", "elegant"], image: "https://images.unsplash.com/photo-1634546269412-b671f827674b?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "par3", title: "Riviera Escape", vibe: "Parisian", tags: ["parisian", "riviera", "summery", "relaxed", "french"], image: "https://images.unsplash.com/photo-1523359346063-d879354c0ea5?auto=format&fit=crop&w=400&q=80", size: "medium" },
 
   // ── Earth Tones ──────────────────────────────────────────────────────────────
-  { id: "et1", title: "Terracotta Season", vibe: "Earth Tones", tags: ["earth tones", "terracotta", "warm", "natural", "cozy"], image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80", size: "medium" },
+  { id: "et1", title: "Terracotta Season", vibe: "Earth Tones", tags: ["earth tones", "terracotta", "warm", "natural", "cozy"], image: "https://images.unsplash.com/photo-1618333452884-5c8d211ed2ad?auto=format&fit=crop&w=400&q=80", size: "medium" },
   { id: "et2", title: "Desert Palette", vibe: "Earth Tones", tags: ["earth tones", "desert", "brown", "sand", "organic"], image: "https://images.unsplash.com/photo-1740427304467-2fb80eaf3447?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "et3", title: "Forest Mood", vibe: "Earth Tones", tags: ["earth tones", "forest", "green", "olive", "nature"], image: "https://images.unsplash.com/photo-1545315003-c5ad6226c272?auto=format&fit=crop&w=400&q=80", size: "short" },
 
@@ -173,15 +173,15 @@ const ITEMS: InspirationItem[] = [
   // ── Scandi Minimal ───────────────────────────────────────────────────────────
   { id: "scan1", title: "Stockholm Streets", vibe: "Scandi Minimal", tags: ["scandinavian", "minimal", "clean", "structured", "neutral"], image: "https://images.unsplash.com/photo-1760580334293-0a588da9d7c3?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "scan2", title: "Nordic Layers", vibe: "Scandi Minimal", tags: ["scandinavian", "layers", "winter", "neutral", "quality"], image: "https://images.unsplash.com/photo-1755376224231-3fc80007fb8e?auto=format&fit=crop&w=400&q=80", size: "medium" },
-  { id: "scan3", title: "Copenhagen Cool", vibe: "Scandi Minimal", tags: ["scandinavian", "cool", "effortless", "modern", "clean"], image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "scan3", title: "Copenhagen Cool", vibe: "Scandi Minimal", tags: ["scandinavian", "cool", "effortless", "modern", "clean"], image: "https://images.unsplash.com/photo-1581449774163-4afe54745c3e?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Skater ───────────────────────────────────────────────────────────────────
   { id: "sk1", title: "Skate Park Ready", vibe: "Skater", tags: ["skater", "baggy", "casual", "street", "sneakers"], image: "https://images.unsplash.com/photo-1665675241472-ef9b474be5f2?auto=format&fit=crop&w=400&q=80", size: "medium" },
-  { id: "sk2", title: "Vans & Flannel", vibe: "Skater", tags: ["skater", "vans", "flannel", "casual", "youth"], image: "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=400&q=80", size: "tall" },
+  { id: "sk2", title: "Vans & Flannel", vibe: "Skater", tags: ["skater", "vans", "flannel", "casual", "youth"], image: "https://images.unsplash.com/photo-1616178193482-4dad15347c26?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "sk3", title: "Grip Tape Aesthetic", vibe: "Skater", tags: ["skater", "graphic tee", "shorts", "relaxed", "fun"], image: "https://images.unsplash.com/photo-1566913485399-b31b0a99a0e5?auto=format&fit=crop&w=400&q=80", size: "short" },
 
   // ── Vintage ──────────────────────────────────────────────────────────────────
-  { id: "vin1", title: "Decades Mix", vibe: "Vintage", tags: ["vintage", "decades", "thrift", "unique", "retro"], image: "https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&w=400&q=80", size: "short" },
+  { id: "vin1", title: "Decades Mix", vibe: "Vintage", tags: ["vintage", "decades", "thrift", "unique", "retro"], image: "https://images.unsplash.com/photo-1540924782561-3fc182603b86?auto=format&fit=crop&w=400&q=80", size: "short" },
   { id: "vin2", title: "60s Mod Revival", vibe: "Vintage", tags: ["vintage", "60s", "mod", "shift dress", "geometric"], image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=400&q=80", size: "tall" },
   { id: "vin3", title: "80s Power Vibes", vibe: "Vintage", tags: ["vintage", "80s", "bold", "shoulder pads", "statement"], image: "https://images.unsplash.com/photo-1551717743-25945655baab?auto=format&fit=crop&w=400&q=80", size: "medium" },
 ];
